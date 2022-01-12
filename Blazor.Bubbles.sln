@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32104.313
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.Bubbles", "Blazor.Bubbles.csproj", "{79A9975A-A007-483E-B798-A972047D0323}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{79A9975A-A007-483E-B798-A972047D0323}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79A9975A-A007-483E-B798-A972047D0323}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79A9975A-A007-483E-B798-A972047D0323}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79A9975A-A007-483E-B798-A972047D0323}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4910DFF1-597F-41A0-A16B-3417A8B1E9D0}
+	EndGlobalSection
+EndGlobal
