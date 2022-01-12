@@ -24,7 +24,7 @@ namespace Blazor.Bubbles.Pages
         [Inject]
         protected BoundingBoxSubscriberService BoundingBoxSubscriberService { get; set; }
 
-        protected ElementReference Div { get; set; }
+        protected ElementReference SVG { get; set; }
 
         protected BoundingBox BoundingBox { get; set; } = new();
 
@@ -37,7 +37,7 @@ namespace Blazor.Bubbles.Pages
             if (firstRender)
             {
                 BoundingBoxSubscriber? subscriber = await BoundingBoxSubscriberService.CreateSubscriberForChangeAsync();
-                await subscriber.Subscribe(Div, (b) =>
+                await subscriber.Subscribe(SVG, (b) =>
                 {
                     BoundingBox = b;
                     StateHasChanged();

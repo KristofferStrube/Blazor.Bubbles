@@ -2,8 +2,8 @@
 
 <PageTitle>Bubbles</PageTitle>
 
-<svg @ref=Div style="width:100%;height:100vh;background-color:black;">
-    @foreach(Bubble b in Bubbles)
+<svg @ref=SVG style="width:100%;height:100%;background-color:black;">
+    @foreach (Bubble b in Bubbles)
     {
         <circle @onclick="() => RandomizeBubble(b)" fill=@b.Color r=@b.Radius.AsString() cx=@b.X.AsString() cy=@b.Y.AsString() />
     }
