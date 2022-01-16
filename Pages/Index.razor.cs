@@ -21,6 +21,8 @@ namespace Blazor.Bubbles.Pages
         [Parameter, SupplyParameterFromQuery]
         public string? Colors { get; set; }
 
+        private List<string> colors = new() { "#007A30", "#00C44E", "#00DB57", "#00A843", "#00913A", "#00B749" };
+
         [Inject]
         protected BoundingBoxSubscriberService BoundingBoxSubscriberService { get; set; }
 
@@ -68,7 +70,6 @@ namespace Blazor.Bubbles.Pages
                     MaxSpeed = 1;
                 }
 
-                List<string> colors = new() { "#007A30", "#00C44E", "#00DB57", "#00A843", "#00913A", "#00B749" };
                 if (Colors is not null)
                 {
                     colors = JsonSerializer.Deserialize<List<string>>(Colors) ?? colors;
@@ -76,15 +77,13 @@ namespace Blazor.Bubbles.Pages
 
                 for (int i = 0; i < Amount; i++)
                 {
-                    Bubbles.Add(new Bubble()
+                    var newBubble = new Bubble()
                     {
-                        Color = colors[Random.Next(colors.Count)],
-                        Radius = MinRadius.Value + Random.NextDouble() * (MaxRadius.Value - MinRadius.Value),
                         X = Random.NextDouble() * BoundingBox.Width,
-                        Y = Random.NextDouble() * BoundingBox.Height,
-                        VX = Random.NextDouble() * (Random.Next(0, 2) == 0 ? 1 : -1) * MaxSpeed.Value,
-                        VY = Random.NextDouble() * (Random.Next(0, 2) == 0 ? 1 : -1) * MaxSpeed.Value
-                    });
+                        Y = Random.NextDouble() * BoundingBox.Height
+                    };
+                    RandomizeBubble(newBubble);
+                    Bubbles.Add(newBubble);
                 }
 
                 await Task.Run(async () =>
@@ -119,6 +118,7 @@ namespace Blazor.Bubbles.Pages
 
         protected void RandomizeBubble(Bubble b)
         {
+            b.Color = colors[Random.Next(colors.Count)];
             b.Radius = MinRadius.Value + Random.NextDouble() * (MaxRadius.Value - MinRadius.Value);
             b.VX = Random.NextDouble() * (Random.Next(0, 2) == 0 ? 1 : -1) * MaxSpeed.Value;
             b.VY = Random.NextDouble() * (Random.Next(0, 2) == 0 ? 1 : -1) * MaxSpeed.Value;
