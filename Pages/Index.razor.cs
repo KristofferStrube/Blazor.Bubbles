@@ -1,6 +1,7 @@
 using Blazor.Bubbles.Services;
 using Microsoft.AspNetCore.Components;
 using System.Text.Json;
+using static Random.Shared;
 
 namespace Blazor.Bubbles.Pages
 {
@@ -34,8 +35,6 @@ namespace Blazor.Bubbles.Pages
         protected BoundingBox BoundingBox { get; set; } = new();
 
         protected List<Bubble> Bubbles = new();
-
-        protected Random Random = new Random();
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -78,8 +77,8 @@ namespace Blazor.Bubbles.Pages
                 {
                     var newBubble = new Bubble()
                     {
-                        X = Random.NextDouble() * BoundingBox.Width,
-                        Y = Random.NextDouble() * BoundingBox.Height
+                        X = NextDouble() * BoundingBox.Width,
+                        Y = NextDouble() * BoundingBox.Height
                     };
                     RandomizeBubble(newBubble);
                     Bubbles.Add(newBubble);
@@ -117,10 +116,10 @@ namespace Blazor.Bubbles.Pages
 
         protected void RandomizeBubble(Bubble b)
         {
-            b.Color = colors[Random.Next(colors.Count)];
-            b.Radius = MinRadius.Value + Random.NextDouble() * (MaxRadius.Value - MinRadius.Value);
-            b.VX = (MinSpeed.Value + Random.NextDouble() * (MaxSpeed.Value - MinSpeed.Value) * (Random.Next(0, 2) == 0 ? 1 : -1));
-            b.VY = (MinSpeed.Value + Random.NextDouble() * (MaxSpeed.Value - MinSpeed.Value) * (Random.Next(0, 2) == 0 ? 1 : -1));
+            b.Color = colors[Next(colors.Count)];
+            b.Radius = MinRadius.Value + NextDouble() * (MaxRadius.Value - MinRadius.Value);
+            b.VX = (MinSpeed.Value + NextDouble() * (MaxSpeed.Value - MinSpeed.Value)) * (Next(0, 2) == 0 ? 1 : -1);
+            b.VY = (MinSpeed.Value + NextDouble() * (MaxSpeed.Value - MinSpeed.Value)) * (Next(0, 2) == 0 ? 1 : -1);
         }
 
         private void CollideWithOuterBox(Bubble b)
@@ -159,11 +158,6 @@ namespace Blazor.Bubbles.Pages
             b1.Y += (b1.Y - b2.Y) / dist * (b1.Radius + b2.Radius - dist);
             b2.X += (b2.X - b1.X) / dist * (b1.Radius + b2.Radius - dist);
             b2.Y += (b2.Y - b1.Y) / dist * (b1.Radius + b2.Radius - dist);
-
-            //b1.VX = -b1.VX;
-            //b1.VY = -b1.VY;
-            //b2.VX = -b2.VX;
-            //b2.VY = -b2.VY;
         }
 
         protected class Bubble
