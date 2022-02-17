@@ -1,7 +1,7 @@
 using Blazor.Bubbles.Services;
 using Microsoft.AspNetCore.Components;
 using System.Text.Json;
-using static System.Random.Shared;
+using static System.Random;
 
 namespace Blazor.Bubbles.Pages
 {
@@ -77,8 +77,8 @@ namespace Blazor.Bubbles.Pages
                 {
                     var newBubble = new Bubble()
                     {
-                        X = NextDouble() * BoundingBox.Width,
-                        Y = NextDouble() * BoundingBox.Height
+                        X = Shared.NextDouble() * BoundingBox.Width,
+                        Y = Shared.NextDouble() * BoundingBox.Height
                     };
                     RandomizeBubble(newBubble);
                     Bubbles.Add(newBubble);
@@ -116,10 +116,10 @@ namespace Blazor.Bubbles.Pages
 
         protected void RandomizeBubble(Bubble b)
         {
-            b.Color = colors[Next(colors.Count)];
-            b.Radius = MinRadius.Value + NextDouble() * (MaxRadius.Value - MinRadius.Value);
-            b.VX = (MinSpeed.Value + NextDouble() * (MaxSpeed.Value - MinSpeed.Value)) * (Next(0, 2) == 0 ? 1 : -1);
-            b.VY = (MinSpeed.Value + NextDouble() * (MaxSpeed.Value - MinSpeed.Value)) * (Next(0, 2) == 0 ? 1 : -1);
+            b.Color = colors[Shared.Next(colors.Count)];
+            b.Radius = MinRadius.Value + Shared.NextDouble() * (MaxRadius.Value - MinRadius.Value);
+            b.VX = (MinSpeed.Value + Shared.NextDouble() * (MaxSpeed.Value - MinSpeed.Value)) * (Shared.Next(0, 2) == 0 ? 1 : -1);
+            b.VY = (MinSpeed.Value + Shared.NextDouble() * (MaxSpeed.Value - MinSpeed.Value)) * (Shared.Next(0, 2) == 0 ? 1 : -1);
         }
 
         private void CollideWithOuterBox(Bubble b)
