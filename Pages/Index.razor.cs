@@ -49,39 +49,25 @@ namespace Blazor.Bubbles.Pages
                 });
 
                 if (!Amount.HasValue)
-                {
                     Amount = 30;
-                }
 
                 if (!MinRadius.HasValue)
-                {
                     MinRadius = Math.Max(BoundingBox.Width, BoundingBox.Height) / 20 / 10;
-                }
 
                 if (!MaxRadius.HasValue)
-                {
                     MaxRadius = Math.Max(BoundingBox.Width, BoundingBox.Height) / 20;
-                }
 
                 if (MinRadius > MaxRadius)
-                {
                     throw new ArgumentException("MinRadius needs to be lower than or equal to MaxRadius. MinRadius is 0 by default and MaxRadius is one 20th of the widest of the height or width of the screen.");
-                }
 
                 if (!MinSpeed.HasValue)
-                {
-                    MinSpeed = 1;
-                }
+                    MinSpeed = 0;
 
                 if (!MaxSpeed.HasValue)
-                {
                     MaxSpeed = 1;
-                }
                 
                 if (MinSpeed > MaxSpeed)
-                {
-                    throw new ArgumentException("MinSpeed needs to be lower than or equal to MaxSpeed. MinSpeed is 1 by default and MaxSpeed is 1.");
-                }
+                    throw new ArgumentException("MinSpeed needs to be lower than or equal to MaxSpeed. MinSpeed is 0 by default and MaxSpeed is 1.");
 
                 if (Colors is not null)
                 {
@@ -133,8 +119,8 @@ namespace Blazor.Bubbles.Pages
         {
             b.Color = colors[Random.Next(colors.Count)];
             b.Radius = MinRadius.Value + Random.NextDouble() * (MaxRadius.Value - MinRadius.Value);
-            b.VX = Random.NextDouble() * (Random.Next(0, 2) == 0 ? 1 : -1) * MaxSpeed.Value;
-            b.VY = Random.NextDouble() * (Random.Next(0, 2) == 0 ? 1 : -1) * MaxSpeed.Value;
+            b.VX = (MinSpeed.Value + Random.NextDouble() * (MaxSpeed.Value - MinSpeed.Value) * (Random.Next(0, 2) == 0 ? 1 : -1));
+            b.VY = (MinSpeed.Value + Random.NextDouble() * (MaxSpeed.Value - MinSpeed.Value) * (Random.Next(0, 2) == 0 ? 1 : -1));
         }
 
         private void CollideWithOuterBox(Bubble b)
