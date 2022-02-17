@@ -19,6 +19,9 @@ namespace Blazor.Bubbles.Pages
         public double? MaxSpeed { get; set; }
 
         [Parameter, SupplyParameterFromQuery]
+        public double? MinSpeed { get; set; }
+
+        [Parameter, SupplyParameterFromQuery]
         public string? Colors { get; set; }
 
         private List<string> colors = new() { "#007A30", "#00C44E", "#00DB57", "#00A843", "#00913A", "#00B749" };
@@ -65,9 +68,19 @@ namespace Blazor.Bubbles.Pages
                     throw new ArgumentException("MinRadius needs to be lower than or equal to MaxRadius. MinRadius is 0 by default and MaxRadius is one 20th of the widest of the height or width of the screen.");
                 }
 
+                if (!MinSpeed.HasValue)
+                {
+                    MinSpeed = 1;
+                }
+
                 if (!MaxSpeed.HasValue)
                 {
                     MaxSpeed = 1;
+                }
+                
+                if (MinSpeed > MaxSpeed)
+                {
+                    throw new ArgumentException("MinSpeed needs to be lower than or equal to MaxSpeed. MinSpeed is 1 by default and MaxSpeed is 1.");
                 }
 
                 if (Colors is not null)
