@@ -1,7 +1,7 @@
 using Blazor.Bubbles.Services;
 using Microsoft.AspNetCore.Components;
 using System.Text.Json;
-using static Random.Shared;
+using static System.Random.Shared;
 
 namespace Blazor.Bubbles.Pages
 {
